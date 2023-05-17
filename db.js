@@ -28,12 +28,16 @@ function createTables(db) {
         `,
         `
         CREATE TABLE IF NOT EXISTS messages (
-            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            ID varchar PRIMARY KEY,
             user_ID INTEGER NOT NULL,
-            channel_ID INTEGER NOT NULL,
             text varchar(100) NOT NULL,
+<<<<<<< Updated upstream
             FOREIGN KEY (user_ID) REFERENCES users(ID),
             FOREIGN KEY (channel_ID) REFERENCES channels(ID)
+=======
+            date varchar(100) NOT NULL,
+            FOREIGN KEY (user_ID) REFERENCES users(ID)
+>>>>>>> Stashed changes
         );
         `,
         `
@@ -41,6 +45,14 @@ function createTables(db) {
             user_ID INTEGER NOT NULL,
             channel_ID INTEGER NOT NULL,
             FOREIGN KEY (user_ID) REFERENCES users(ID),
+            FOREIGN KEY (channel_ID) REFERENCES channels(ID)
+        );
+        `,
+        `
+        CREATE TABLE IF NOT EXISTS messchan (
+            message_ID INTEGER NOT NULL,
+            channel_ID INTEGER NOT NULL,
+            FOREIGN KEY (message_ID) REFERENCES messages(ID),
             FOREIGN KEY (channel_ID) REFERENCES channels(ID)
         );
         `
