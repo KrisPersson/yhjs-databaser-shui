@@ -5,6 +5,7 @@ async function postNewMessageCtrl(request, response) {
     try {
         const { user_ID, channels, text } = request.body
         const message_ID = await postNewMessage(user_ID, channels, text)
+        
         await postMessChan(message_ID, channels)
         
         response.json({ success: true, message: 'New message posted successfully!' })

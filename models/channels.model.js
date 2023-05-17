@@ -43,6 +43,20 @@ function getChannelName(name) {
   });
 }
 
+function getChannelById(channel_ID) {
+    const sql = `SELECT * FROM channels WHERE ID = ?`;
+  
+    return new Promise((resolve, reject) => {
+      db.get(sql, [channel_ID], (error, row) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(row);
+        }
+      });
+    });
+  }
+
 function getChannelOwnerID(owner_ID) {
   const sql = `SELECT owner_ID FROM channels WHERE owner_ID = ?`;
 

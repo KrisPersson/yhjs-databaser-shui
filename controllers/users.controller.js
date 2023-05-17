@@ -23,7 +23,7 @@ async function loginUser(request, response) {
     try {
         const { username, password } = request.body
         const result = await validateUser(username, password)
-        console.log(result)
+        // console.log(result)
         if(result) {
             response.json({ success: true, result: result})
         } else {
