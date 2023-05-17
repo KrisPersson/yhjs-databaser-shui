@@ -2,10 +2,6 @@ const { createDbConnection } = require('../db')
 
 const db = createDbConnection()
 
-<<<<<<< Updated upstream:model.js
-
-
-=======
 async function postSubscription(user_ID, channel_ID) {
 
     const subscriptionAlreadyExists = await findSubscription(user_ID, channel_ID)
@@ -73,4 +69,3 @@ async function deleteSubscription(user_ID, channel_ID) {
 
 
 module.exports = { postSubscription, deleteSubscription, findSubscriptions }
->>>>>>> Stashed changes:models/subscriptions.model.js

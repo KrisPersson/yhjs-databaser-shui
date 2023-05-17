@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-=======
+
 const { postSubscription, deleteSubscription } = require('../models/subscriptions.model')
 
 async function postSubscriptionCtrl(request, response) {
@@ -26,4 +25,3 @@ async function deleteSubscriptionCtrl(request, response) {
 
 
 module.exports = { postSubscriptionCtrl, deleteSubscriptionCtrl }
->>>>>>> Stashed changes

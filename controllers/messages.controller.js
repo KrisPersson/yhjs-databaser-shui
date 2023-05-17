@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-=======
+
 const { postNewMessage, getMessages, deleteMessage, postMessChan, getMesschanByChannel, getMessagesByUser } = require('../models/messages.model')
 
 async function postNewMessageCtrl(request, response) {
@@ -60,4 +59,3 @@ async function deleteMessageCtrl(request, response) {
 
 
 module.exports = { postNewMessageCtrl, getChannelMessagesCtrl, deleteMessageCtrl, getUserMessagesCtrl }
->>>>>>> Stashed changes

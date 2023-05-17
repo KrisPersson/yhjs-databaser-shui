@@ -31,13 +31,8 @@ function createTables(db) {
             ID varchar PRIMARY KEY,
             user_ID INTEGER NOT NULL,
             text varchar(100) NOT NULL,
-<<<<<<< Updated upstream
-            FOREIGN KEY (user_ID) REFERENCES users(ID),
-            FOREIGN KEY (channel_ID) REFERENCES channels(ID)
-=======
             date varchar(100) NOT NULL,
             FOREIGN KEY (user_ID) REFERENCES users(ID)
->>>>>>> Stashed changes
         );
         `,
         `
