@@ -71,10 +71,27 @@ function getChannelOwnerID(owner_ID) {
   });
 }
 
+function getChannelPrimaryKey(name) {
+  const sql = `SELECT ID FROM channels WHERE name = ?`;
+
+  return new Promise((resolve, reject) => {
+    db.get(sql, [name], (error, row) => {
+      if (error) {
+        reject(error);
+      } else {
+        console.log(row);
+        resolve(row);
+      }
+    });
+  });
+}
+
 module.exports = {
   insertNewChannel,
   getAllChannels,
   getChannelName,
   getChannelOwnerID,
   removeChannel,
+  getChannelPrimaryKey,
+  getChannelById
 };

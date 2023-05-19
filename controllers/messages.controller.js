@@ -19,13 +19,20 @@ async function getChannelMessagesCtrl(request, response) {
         const channel_ID = request.headers.channel_id
         const messageIDsFromMesschan = await getMesschanByChannel(channel_ID)
         const messagesFromDb = await getMessages(messageIDsFromMesschan)
-        const messages = request.query.sort === 'oldest' ?
-            messagesFromDb.sort((a, b) => a.date - b.date) :
+        let messages = request.query.sort === 'oldest' ?
+            messagesFromDb.sort((a, b) => a.date.getTime() - b.date.getTime()) :
             request.query.sort === 'newest' ?
-            messagesFromDb.sort((a, b) => b.date - a.date) :
+            messagesFromDb.sort((a, b) => b.date.getTime() - a.date.getTime()) :
             [...messagesFromDb]
         
-        response.json({ success: true, messages })
+        const parsedMessages = messages.map(message => {
+            const numDate = message.date
+            console.log(numDate)
+            return {...message, date: numDate}
+        })
+
+        
+        response.json({ success: true, messages: parsedMessages })
     } catch (error) {
         response.json({ success: false, error: error.message })
     }

@@ -27,7 +27,7 @@ async function loginUser(request, response) {
         if(result) {
             response.json({ success: true, result: result})
         } else {
-            response.json({ success: false, msg: 'User does not exist!'})
+            response.json({ success: false, msg: 'Wrong username/password combination'})
         }
         
     } catch (error) {

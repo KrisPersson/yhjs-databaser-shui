@@ -1,5 +1,6 @@
 const { createDbConnection } = require('../db')
-const { findSubscriptions } = require('./subscriptions.model')
+const { findSubscriptionsByUserId } = require('./subscriptions.model')
+const { findUserById } = require('./users.model')
 const { uuidv4 } = require('../uuid')
 
 
@@ -7,8 +8,11 @@ const db = createDbConnection()
 
 
 async function postNewMessage(user_ID, channels, text) {
-    
-    const userSubscriptions = await findSubscriptions(user_ID)
+    const userExists = await findUserById(user_ID)
+    if (!userExists) {
+        throw new Error('User with this ID does not exist')
+    }
+    const userSubscriptions = await findSubscriptionsByUserId(user_ID)
     channels.forEach(channel => {
         if (userSubscriptions.filter(userSub => userSub.channel_ID == channel).length !== 1) {
             throw new Error('User not subscribed to one or more channels and can not post')
@@ -138,6 +142,8 @@ async function deleteMessage(ID) {
         throw new Error(`Message with ID: ${ID} not found`)
     }
 
+    await deleteMessChans(ID)
+
     return new Promise((resolve, reject) => {
         db.run(sql, arr, (err) => {
             if (err) {
@@ -148,5 +154,22 @@ async function deleteMessage(ID) {
         })
     })
 }
+
+async function deleteMessChans(message_ID) {
+    const sql = `DELETE FROM messchan WHERE message_ID = ?`
+    const arr = [message_ID]
+
+    return new Promise((resolve, reject) => {
+        db.run(sql, arr, (err) => {
+            if (err) {
+                reject(err.message)
+            } else {
+                resolve('Messchans deleted!')
+            }
+        })
+    })
+}
+
+
 
 module.exports = { postNewMessage, getMessages, getMessagesByUser, deleteMessage, postMessChan, getMesschanByChannel }

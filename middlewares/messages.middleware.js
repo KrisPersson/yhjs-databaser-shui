@@ -15,7 +15,7 @@ const checkGetUserMessagesSchema = Joi.object({
 })
 
 const checkDeleteMessageSchema = Joi.object({
-    ID: Joi.number().required()
+    ID: Joi.string().required()
 })
 
 async function checkNewMessage(request, response, next) {
