@@ -79,7 +79,6 @@ function getChannelPrimaryKey(name) {
       if (error) {
         reject(error);
       } else {
-        console.log(row);
         resolve(row);
       }
     });
